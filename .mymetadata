@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="xyOA"
+  id="myeclipse.1416378317759"
+  context-root="/xyOA"
+  j2ee-spec="5.0"
+  archive="xyOA.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
