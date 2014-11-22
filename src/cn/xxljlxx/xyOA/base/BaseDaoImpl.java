@@ -2,6 +2,8 @@ package cn.xxljlxx.xyOA.base;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +11,7 @@ import javax.mail.QuotaAwareStore;
 import javax.persistence.criteria.From;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class BaseDaoImpl<T> implements IBaseDao<T>{
@@ -19,43 +22,49 @@ public class BaseDaoImpl<T> implements IBaseDao<T>{
 	Class<T> clazz;
 	
 	public BaseDaoImpl(){
-		//获取父类DAO类型
+		//获取父类DAO类型W
 		ParameterizedType type = (ParameterizedType)this.getClass().getGenericSuperclass();
 		Type[] types = type.getActualTypeArguments();
 		clazz = (Class<T>) types[0];
 	}
 	
 	public void save(T entity) {
-		sessionFactory.getCurrentSession().save(entity);
+		getsession().save(entity);
 	}
 
 	public void delete(Long id) {
-		sessionFactory.getCurrentSession().delete(sessionFactory.getCurrentSession().get(clazz, id));
+		getsession().delete(sessionFactory.getCurrentSession().get(clazz, id));
 		
 	}
 
 	public void update(T entity) {
-		sessionFactory.getCurrentSession().update(entity);
+		getsession().update(entity);
 		
 	}
 
 	public T findById(Long id) {
-		return (T) sessionFactory.getCurrentSession().get(clazz,id);
+		return (T) getsession().get(clazz,id);
 		
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		String hql = "FROM" + clazz.getSimpleName();
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		Query query = getsession().createQuery(hql);
 		return query.list();
 	}
 
 	public List<T> findByIds(Long[] ids) {
-		String hql = "FROM" +clazz.getSimpleName() + "WHERE id in (:ids)";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		List list = query.list();
-		return list;
+		if (ids != null && ids.length >0) {
+			String hql = "FROM" +clazz.getSimpleName() + "WHERE id in (:ids)";
+			Query query = getsession().createQuery(hql);
+			List list = query.list();
+			return list;
+		}
+		return Collections.EMPTY_LIST;
 	}
 
+	public Session getsession(){
+		return sessionFactory.getCurrentSession();
+	} 
 }
