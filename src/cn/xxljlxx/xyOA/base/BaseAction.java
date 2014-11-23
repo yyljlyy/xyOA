@@ -3,8 +3,15 @@ package cn.xxljlxx.xyOA.base;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import javax.annotation.Resource;
+
+import cn.xxljlxx.xyOA.service.IBookService;
+import cn.xxljlxx.xyOA.service.IRoleService;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.util.ValueStack;
 
 /**
  * 抽取通用Action
@@ -12,6 +19,10 @@ import com.opensymphony.xwork2.ModelDriven;
  *
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
+	@Resource
+	protected IBookService bookService;
+	@Resource
+	protected IRoleService roleService;
 	protected T model;//模型驱动
 	
 	public T getModel() {
@@ -35,5 +46,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	protected ValueStack getValueStack(){
+		return ActionContext.getContext().getValueStack();
 	}
 }

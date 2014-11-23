@@ -11,6 +11,10 @@
 		<action name="bookAction_*" class="bookAction" method="{1}">
 			<result name="success">/index.jsp</result>
 		</action>
+		<!-- 岗位管理Action -->
+		<action name="roleAction_*" class="roleAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/role/list.jsp</result>
+		</action>
     </package>
 
 
