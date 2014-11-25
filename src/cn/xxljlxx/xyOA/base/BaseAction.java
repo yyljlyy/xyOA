@@ -15,16 +15,17 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 /**
  * 抽取通用Action
+ * 
  * @author lee
- *
+ * 
  */
-public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
+public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	@Resource
 	protected IBookService bookService;
 	@Resource
 	protected IRoleService roleService;
-	protected T model;//模型驱动
-	
+	protected T model;// 模型驱动
+
 	public T getModel() {
 		// TODO Auto-generated method stub
 		return model;
@@ -33,10 +34,11 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
 	/**
 	 * 在构造方法中动态获得模型对象类型
 	 */
-	public BaseAction(){
-		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
+	public BaseAction() {
+		ParameterizedType type = (ParameterizedType) this.getClass()
+				.getGenericSuperclass();
 		Type[] types = type.getActualTypeArguments();
-		Class<T> type2 =(Class<T>) types[0];
+		Class<T> type2 = (Class<T>) types[0];
 		try {
 			model = type2.newInstance();
 		} catch (InstantiationException e) {
@@ -47,8 +49,8 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
 			e.printStackTrace();
 		}
 	}
-	
-	protected ValueStack getValueStack(){
+
+	protected ValueStack getValueStack() {
 		return ActionContext.getContext().getValueStack();
 	}
 }

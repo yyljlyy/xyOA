@@ -8,4 +8,14 @@ public interface IRoleService {
 
 	public List<Role> findAll();
 
+	public List<Role> findRoleByName(String name);
+
+	public void update(Role role);
+
+	public Role findRoleById(Long id);
+
+	public void save(Role model);
+
+	public void delete(Role model);
+
 }

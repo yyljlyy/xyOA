@@ -15,12 +15,47 @@ import cn.xxljlxx.xyOA.domain.Role;
 public class RoleServiceImpl implements IRoleService{
 	@Resource
 	private IRoleDao roleDao;
+	
 	/**
 	 * 查询岗位列表
-	 * @return 
 	 */
 	public List<Role> findAll() {
 		return roleDao.findAll();
+	}
+
+	/**
+	 * 删除岗位实体
+	 */
+	public void delete(Role model) {
+		roleDao.delete(model.getId());
+	}
+
+	/**
+	 * 添加岗位
+	 */
+	public void save(Role model) {
+		roleDao.save(model);
+	}
+	
+	/**
+	 * 根据id查询岗位
+	 */
+	public Role findRoleById(Long id) {
+		return roleDao.findById(id);
+	}
+
+	/**
+	 * 修改岗位
+	 */
+	public void update(Role role) {
+		roleDao.update(role);
+	}
+
+	/**
+	 * 根据名称查询岗位
+	 */
+	public List<Role> findRoleByName(String name) {
+		return roleDao.findRoleByName(name);
 	}
 
 }

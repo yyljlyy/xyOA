@@ -2,19 +2,18 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping>
 	<class name="cn.xxljlxx.xyOA.domain.Role" table="xyoa_role">
 		<id name="id">
-		<generator class="native"></generator>
+			<generator class="native"></generator>
 		</id>
-		<property name="name" length="32"/>
-		<property name="description" length="128"/>
-	<!-- 配置岗位和用户的多对多关系 -->
-	<set name="users" table="xyoa_user_role">
-		<!-- 当前对象在关系表中的外键 -->
-		<key column="roleid"></key>
-		<many-to-many class="cn.xxljlxx.xyOA.domain.User" column="userid"/>
-	</set>
+		<property name="name" length="64" />
+		<property name="description" length="255"/>
+		<!-- 配置岗位和用户的多对多关系 -->
+		<set name="users" table="xyoa_user_role">
+			<key column="roleId"></key>
+			<many-to-many class="cn.xxljlxx.xyOA.domain.User" column="userId"></many-to-many>
+		</set>
 	</class>
-	
 </hibernate-mapping>

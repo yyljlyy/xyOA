@@ -17,6 +17,5 @@ public class BookServiceImpl implements IBookService {
 	
 	public void save(Book model) {
 		bookDao.save(model);
-		
 	}
 }

@@ -2,11 +2,14 @@
 <!DOCTYPE struts PUBLIC
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
-
 <struts>
-
     <constant name="struts.devMode" value="true" />
-
+    <!-- 配置Action的扩展后缀 -->
+    <constant name="struts.action.extension" value="action"></constant>
+    <!-- 设置表单主题样式 -->
+    <constant name="struts.ui.theme" value="simple"></constant>
+    <!-- 配置国际化文件 -->
+    <constant name="struts.custom.i18n.resources" value="message"></constant>
     <package name="default" namespace="/" extends="struts-default">
 		<action name="bookAction_*" class="bookAction" method="{1}">
 			<result name="success">/index.jsp</result>
@@ -14,8 +17,23 @@
 		<!-- 岗位管理Action -->
 		<action name="roleAction_*" class="roleAction" method="{1}">
 			<result name="list">/WEB-INF/jsp/role/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">roleAction_list</param>
+			</result>
+			<result name="saveUI">/WEB-INF/jsp/role/saveUI.jsp</result>
+			<result name="updateUI">/WEB-INF/jsp/role/saveUI.jsp</result>
+			<result name="input">/WEB-INF/jsp/role/saveUI.jsp</result>
+		</action>
+		<!-- 部门管理Action -->
+		<action name="departmentAction_*" class="departmentAction" method="{1}">
+			<result name="list">/WEB-INF/jsp/department/list.jsp</result>
+			<result name="toList" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">departmentAction_list</param>
+			</result>
+			<result name="saveUI">/WEB-INF/jsp/department/saveUI.jsp</result>
+			<result name="updateUI">/WEB-INF/jsp/department/saveUI.jsp</result>
 		</action>
     </package>
-
-
 </struts>
