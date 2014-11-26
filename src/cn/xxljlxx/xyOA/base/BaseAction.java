@@ -2,10 +2,13 @@ package cn.xxljlxx.xyOA.base;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import cn.xxljlxx.xyOA.domain.Department;
 import cn.xxljlxx.xyOA.service.IBookService;
+import cn.xxljlxx.xyOA.service.IDepartmentService;
 import cn.xxljlxx.xyOA.service.IRoleService;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -24,10 +27,11 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	protected IBookService bookService;
 	@Resource
 	protected IRoleService roleService;
+	@Resource
+	protected IDepartmentService departmentService;
 	protected T model;// 模型驱动
 
 	public T getModel() {
-		// TODO Auto-generated method stub
 		return model;
 	}
 

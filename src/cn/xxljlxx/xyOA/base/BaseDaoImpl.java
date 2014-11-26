@@ -19,7 +19,7 @@ public class BaseDaoImpl<T> implements IBaseDao<T> {
 	Class<T> clazz;
 
 	public BaseDaoImpl() {
-		// 获取父类DAO类型W
+		// 获取父类DAO类型
 		ParameterizedType type = (ParameterizedType) this.getClass()
 				.getGenericSuperclass();
 		Type[] types = type.getActualTypeArguments();
