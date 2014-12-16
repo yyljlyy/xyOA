@@ -11,18 +11,17 @@ import cn.xxljlxx.xyOA.service.IBookService;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 
 /**
  * BookAction
- * @author lee
+ * @author zhaoqx
  *
  */
 @Controller
 @Scope("prototype")
 public class BookAction extends BaseAction<Book>{
-	
-	@Resource
-	protected IBookService bookService;
 	/**
 	 * 保存方法
 	 */
@@ -30,4 +29,5 @@ public class BookAction extends BaseAction<Book>{
 		bookService.save(model);
 		return SUCCESS;
 	}
+
 }

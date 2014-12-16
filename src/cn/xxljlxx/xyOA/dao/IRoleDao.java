@@ -7,6 +7,5 @@ import cn.xxljlxx.xyOA.domain.Role;
 
 public interface IRoleDao extends IBaseDao<Role>{
 
-	List<Role> findRoleByName(String name);
-
+	public List<Role> findRoleByName(String name);
 }

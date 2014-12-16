@@ -2,13 +2,16 @@ package cn.xxljlxx.xyOA.web.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import cn.xxljlxx.xyOA.base.BaseAction;
+import cn.xxljlxx.xyOA.domain.Privilege;
 import cn.xxljlxx.xyOA.domain.Role;
 
 /**
@@ -19,6 +22,7 @@ import cn.xxljlxx.xyOA.domain.Role;
 @Controller
 @Scope("prototype")
 public class RoleAction extends BaseAction<Role> {
+	private Long[] privilegeIds;//属性驱动，权限id
 	
 	/**
 	 * 查询岗位列表
@@ -97,6 +101,58 @@ public class RoleAction extends BaseAction<Role> {
 		}
 		
 		return NONE;
+	}
+	
+	/**
+	 * 跳转到设置权限页面
+	 */
+	public String setPrivilegeUI(){
+		//根据id查询当前要设置权限的角色，放入值栈
+		Role role = roleService.findRoleById(model.getId());
+		getValueStack().push(role);
+		
+		//查询权限数据，用于页面展示，放入值栈
+		//List<Privilege> privilegeList = privilegeService.findAll();
+		List<Privilege> privilegeList = privilegeService.findTopList();
+		getValueStack().set("privilegeList", privilegeList);
+		
+		//获取当前角色对应的权限集合
+		Set<Privilege> privileges = role.getPrivileges();
+		if(privileges != null && privileges.size() > 0){
+			privilegeIds = new Long[privileges.size()];
+			int i = 0;
+			for(Privilege p : privileges){
+				privilegeIds[i++] = p.getId();
+			}
+		}
+		
+		return "setPrivilegeUI";
+	}
+	
+	/**
+	 * 为角色设置权限
+	 */
+	public String setPrivilege(){
+		Role role = roleService.findRoleById(model.getId());
+		
+		if(privilegeIds != null && privilegeIds.length > 0){
+			List<Privilege> privilegeList = privilegeService.findPrivilegesByIds(privilegeIds);
+			role.setPrivileges(new HashSet<Privilege>(privilegeList));//角色关联权限
+		}else{
+			role.setPrivileges(null);//将角色对应的权限清除
+		}
+		
+		roleService.update(role);
+		
+		return "toList";
+	}
+
+	public void setPrivilegeIds(Long[] privilegeIds) {
+		this.privilegeIds = privilegeIds;
+	}
+
+	public Long[] getPrivilegeIds() {
+		return privilegeIds;
 	}
 
 }

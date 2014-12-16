@@ -4,12 +4,17 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import cn.xxljlxx.xyOA.dao.IRoleDao;
 import cn.xxljlxx.xyOA.domain.Role;
-
+/**
+ * 岗位管理Service
+ * @author zhaoqx
+ *
+ */
 @Service
 @Transactional
 public class RoleServiceImpl implements IRoleService{
@@ -58,4 +63,10 @@ public class RoleServiceImpl implements IRoleService{
 		return roleDao.findRoleByName(name);
 	}
 
+	/**
+	 * 根据id数组查询多个岗位
+	 */
+	public List<Role> findRolesByIds(Long[] roleIds) {
+		return roleDao.findByIds(roleIds);
+	}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop" 
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,8 +12,8 @@
 						http://www.springframework.org/schema/context/spring-context.xsd
 						http://www.springframework.org/schema/tx 
 						http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-<!-- 读取jdbc属性文件 -->
+						
+	<!-- 读取jdbc属性文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties"/>
 
 	<!-- 数据源 -->
@@ -46,31 +46,37 @@
 		<!-- 注入hbm映射文件 -->
 		<property name="mappingDirectoryLocations">
 			<list>
-	 			<value>classpath:cn/xxljlxx/xyOA/domain</value>
-	 		</list>
-	 	</property>
+				<value>classpath:cn/xxljlxx/xyOA/domain</value>
+			</list>
+		</property>
 	</bean>
+	
 	<!-- 事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
+	
 	<!-- 事务通知 -->
-	<!-- <tx:advice id="oa_advice" transaction-manager="transactionManager"> -->
-		<!-- 事务属性 -->
-		<!-- <tx:attributes>
+	<!-- 事务属性 -->
+	<!--
+	<tx:advice id="oa_advice" transaction-manager="transactionManager">
+		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRED"/>
 			<tx:method name="delete*" propagation="REQUIRED"/>
 			<tx:method name="update*" propagation="REQUIRED"/>
-			<tx:method name="fina*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
 		</tx:attributes>
-	</tx:advice> -->
-	<!-- aop切面  = 通知 + 切面-->
-	<!-- <aop:config>
-		<aop:pointcut expression="execution(*cn.xxljlxx.xyOA.service.*.*(..))" id="oa_PC"/>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* .service.*.*(..))" id="oa_PC"/>
 		<aop:advisor advice-ref="oa_advice" pointcut-ref="oa_PC"/>
-	</aop:config> -->
+	</aop:config>
+	-->
+	
 	<!-- 组件扫描 -->
-	<context:component-scan base-package="cn.xxljlxx.xyOA"/>
+	<context:component-scan base-package=""/>
+	<!-- 支持注解 -->
 	<context:annotation-config/>
 	<!-- 事务注解 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>

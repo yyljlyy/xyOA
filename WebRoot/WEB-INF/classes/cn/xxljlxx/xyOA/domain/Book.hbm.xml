@@ -2,12 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC 
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping>
-	<class name="cn.xxljlxx.xyOA.domain.Book" table="xyoa_book">
+	<class name="cn.xxljlxx.xyOA.domain.Book" table="itcast_book">
 		<id name="id">
-		<generator class="native"></generator>
+			<generator class="native"></generator>
 		</id>
-		<property name="name" length="64"/>
-		<property name="price"/>
+		<property name="name" length="64" />
+		<property name="price" />
 	</class>
 </hibernate-mapping>

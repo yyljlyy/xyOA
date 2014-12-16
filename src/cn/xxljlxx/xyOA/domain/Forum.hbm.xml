@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.xxljlxx.xyOA.domain.Forum" table="itcast_forum">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" length="32"/>
+		<property name="description"/>
+		<property name="position"/>
+		
+		<property name="topicCount"/>
+		<property name="articleCount"/>
+		
+		<many-to-one name="lastTopic" class="cn.xxljlxx.xyOA.domain.Topic" column="topicId"/>
+		
+		<set name="topices">
+			<key column="forumId"></key>
+			<one-to-many class="cn.xxljlxx.xyOA.domain.Topic"/>
+		</set>
+	</class>
+</hibernate-mapping>

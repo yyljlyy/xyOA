@@ -5,25 +5,33 @@ import java.util.Set;
 
 /**
  * 用户实体
- * @author lee
+ * @author zhaoqx
  *
  */
+
 public class User {
 	private Long id;
-	private String name;
 	private String loginName;
-	private String passWord;
-	private int gender;
-	private String phone;
+	private String name;
+	private Integer gender;
+	private String phoneNumber;
 	private String email;
 	private String description;
+	private String password;
 	private Department department;
 	private Set<Role> roles = new HashSet<Role>();
+	private String savePath;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 	public String getName() {
 		return name;
@@ -31,30 +39,17 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getLoginName() {
-		return loginName;
-	}
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
-	public String getPassWord() {
-		return passWord;
-	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
-	public int getGender() {
+	public Integer getGender() {
 		return gender;
 	}
-	public void setGender(int gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	public String getEmail() {
 		return email;
@@ -67,6 +62,12 @@ public class User {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public Department getDepartment() {
 		return department;
@@ -81,4 +82,51 @@ public class User {
 		this.roles = roles;
 	}
 	
+	/**
+	 * 验证权限是否存在
+	 */
+	public boolean checkPrivilegeByName(String name){
+		if(isAdmin()){
+			return true;
+		}
+		System.out.println("验证当前登录用户是否有权限：" + name);
+		for(Role r : roles){
+			for(Privilege p : r.getPrivileges()){
+				if(name.equals(p.getName())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 验证权限对应的url是否存在
+	 */
+	public boolean checkPrivilegeByUrl(String url) {
+		if(isAdmin()){
+			return true;
+		}
+		for(Role r : roles){
+			for(Privilege p : r.getPrivileges()){
+				if(url.equals(p.getUrl())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断当前登录用户是否是超级管理员
+	 */
+	public boolean isAdmin(){
+		return "admin".equals(loginName);
+	}
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
+	}
+	public String getSavePath() {
+		return savePath;
+	}
 }

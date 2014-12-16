@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.xxljlxx.xyOA.domain.Topic" table="itcast_topic">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="title" length="32"/>
+		<property name="content"/>
+		<property name="ip"/>
+		<property name="postTime"/>
+		<property name="deleted"/>
+		<property name="type"/>
+		<property name="replyCount"/>
+		<property name="lastUpdateTime"/>
+		
+		<many-to-one name="author" class="cn.xxljlxx.xyOA.domain.User" column="userId"/>
+		
+		<set name="replies">
+			<key column="topicId"></key>
+			<one-to-many class="cn.xxljlxx.xyOA.domain.Reply"/>
+		</set>
+		
+		<many-to-one name="lastReply" class="cn.xxljlxx.xyOA.domain.Reply" column="replyId"/>
+		
+		<many-to-one name="forum" class="cn.xxljlxx.xyOA.domain.Forum" column="forumId"/>
+	</class>
+</hibernate-mapping>

@@ -1,7 +1,7 @@
 package cn.xxljlxx.xyOA.domain;
 /**
  * 实体
- * @author lee
+ * @author zhaoqx
  *
  */
 public class Book {
@@ -26,9 +26,9 @@ public class Book {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", name=" + name + ", price=" + price + "]";
 	}
+	
 }

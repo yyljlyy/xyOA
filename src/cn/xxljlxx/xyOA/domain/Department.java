@@ -3,12 +3,18 @@ package cn.xxljlxx.xyOA.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 部门实体
+ * @author zhaoqx
+ *
+ */
+
 public class Department {
 	private Long id;
 	private String name;
 	private String description;
-	private Department parent;
-	private Set<Department> children = new HashSet<Department>();
+	private Department parent;//上级部门
+	private Set<Department> children = new HashSet<Department>();//下级部门
 	private Set<User> users = new HashSet<User>();
 	public Long getId() {
 		return id;
@@ -46,4 +52,5 @@ public class Department {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+	
 }
